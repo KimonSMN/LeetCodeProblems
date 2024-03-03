@@ -1,40 +1,53 @@
 #include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
+#include <stdlib.h>
 
 int *twoSum(int *nums, int numsSize, int target, int *returnSize)
 {
+    *returnSize = 2;
+    int *result = (int *)malloc(2 * sizeof(int));
 
-    for (int i = 0; i <= numsSize; i++)
+    for (int i = 0; i < numsSize; i++)
     {
-        for (int j = i + 1; j <= numsSize; j++)
+        for (int j = i + 1; j < numsSize; j++)
         {
             if (nums[i] + nums[j] == target)
             {
-                returnSize[0] += i;
-                returnSize[1] += j;
+                result[0] = i;
+                result[1] = j;
+                return result;
             }
         }
     }
+
+    // If no solution is found, adjust returnSize and return NULL
+    *returnSize = 0;
+    free(result);
+    return NULL;
 }
 
 int main()
 {
-    int nums[] = {2, 7, 11, 15};
-    int target = 9;
-    int numsSize = sizeof(nums) / sizeof(nums[0]);
-    int returnSize[2] = {-1, -1}; // Initialize with -1 to indicate not found
+    int nums[] = {2, 7, 11, 15};                   // Example array
+    int target = 9;                                // Target sum
+    int numsSize = sizeof(nums) / sizeof(nums[0]); // Calculate size of nums
+    int returnSize;                                // This will hold the size of the returned array from twoSum
+    int *indices;                                  // This will point to the array returned by twoSum
 
-    twoSum(nums, numsSize, target, returnSize);
+    // Call twoSum function
+    indices = twoSum(nums, numsSize, target, &returnSize);
 
-    if (returnSize[0] != -1 && returnSize[1] != -1)
+    // If returnSize is 2, it means a valid pair was found
+    if (returnSize == 2)
     {
-        printf("Indices: %d, %d\n", returnSize[0], returnSize[1]);
+        printf("Indices: [%d, %d]\n", indices[0], indices[1]);
     }
     else
     {
-        printf("No two sum solution found.\n");
+        printf("No two numbers add up to the target.\n");
     }
+
+    // Free the dynamically allocated memory to prevent memory leaks
+    free(indices);
 
     return 0;
 }
