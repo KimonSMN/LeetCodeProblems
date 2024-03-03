@@ -15,24 +15,22 @@ bool containsDuplicate(int *nums, int numsSize)
             }
         }
     }
-    for (int i = 0; i <= numsSize; i++)
+    for (int i = 0; i < numsSize - 1; i++)
     {
         if (nums[i] == nums[i + 1])
         {
             printf("true");
             return true;
         }
-        else
-        {
-            printf("false");
-            return false;
-        }
     }
+
+    printf("false");
+    return false;
 }
 
 int main()
 {
-    int array[] = {1, 2, 3, 4};
+    int array[] = {2, 14, 18, 22, 22};
     int size = sizeof(array) / sizeof(array[0]);
     containsDuplicate(array, size);
     return 0;
