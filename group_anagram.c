@@ -10,15 +10,13 @@
 
 char ***groupAnagrams(char **strs, int strsSize, int *returnSize, int **returnColumnSizes)
 {
-
-    int charCount[256] = {0};
-
     for (int i = 0; i < strsSize; i++) // Iterate through all elements of strs
     {
+        int charCount[256] = {0};            // Reset for each string
         int tempLength = strlen(strs[i]);    // Find length of each strs element
         for (int j = 0; j < tempLength; j++) // Iterate through all characters in each strs element
         {
-            charCount[strs[]]++;
+            charCount[(unsigned char)strs[i][j]]++;
         }
     }
 }
